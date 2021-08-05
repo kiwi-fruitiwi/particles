@@ -5,10 +5,13 @@
 # color, transparency, shape, and lifetime
 #
 # v0.01 bouncing, fading particles with gravity
-# v0.02
+# v0.02 randomized initial velocity to create fireworks
 # v0.03
 # v0.04
 # v0.05
+# TODO: we are at 5:15 of the video now 
+# https://www.youtube.com/watch?v=syR0klfncCk&list=PLRqwX-V7Uu6ZV4yEcW3uDwOgGXKUUsPOM&index=33
+
 
 from Particle import *        
         
@@ -20,8 +23,9 @@ def setup():
     
     particles = []
     
-    for i in range(50):
-        particles.append(Particle(random(width), random(height)))
+    for i in range(500):
+        # particles.append(Particle(random(width), random(height)))
+        particles.append(Particle(width/2, height/2))
 
 
 def draw():
@@ -40,6 +44,12 @@ def draw():
 def mousePressed():
     global particles
     
-    # wind = PVector(0.1, 0)
+    wind = PVector(0.5, 0)
+    
+    for p in particles:
+        p.apply_force(wind)
+        p.update()
+        p.edges()
+        p.show()
     
      
