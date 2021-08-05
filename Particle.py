@@ -4,7 +4,7 @@
 class Particle:
     def __init__(self, x, y):
         self.pos = PVector(x, y)
-        self.vel = PVector.random2D().mult(random(3, 20))
+        self.vel = PVector.random2D().mult(random(0.05, 2))
         self.acc = PVector(0, 0)
         self.r = 4
         
@@ -13,9 +13,17 @@ class Particle:
         self.lifetime = 100
     
     
+    def finished(self):
+        return self.lifetime < 0
+        
+    
     def show(self):
         stroke(0, 0, 100, self.lifetime)
         fill(0, 0, 100, self.lifetime)
+        
+        if self.finished():
+            stroke(00, 00, 100, 100)
+            fill(00, 00, 100, 30)
         circle(self.pos.x, self.pos.y, self.r) 
         
     
@@ -26,9 +34,10 @@ class Particle:
         
         
         # hacked-in air resistance?
-        self.vel.mult(0.999)
+        self.vel.mult(0.99)
         
-        self.lifetime -= random(0.5)
+        self.lifetime -= random(2)
+        
         
     
     # check to make sure our particle is constrained within the edges
